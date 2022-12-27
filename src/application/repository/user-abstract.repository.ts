@@ -1,12 +1,12 @@
-import { UsersEntity } from "../entities/user.entity";
+import { UserEntity } from "../entities/user.entity";
+import { CreateUserDto } from "../usecases/users/dto/create-user.dto";
+import { UpdateUserDto } from "../usecases/users/dto/update-user.dto";
 
 export abstract class UserAbstractRepository {
-    abstract findAll(): Promise<UsersEntity[]>;
-    abstract findOneOrFail(
-        conditions: any,
-        options?: any
-    ): Promise<UsersEntity>;
-    abstract create(data: any): Promise<void>;
-    abstract update(id: number, data: any): Promise<void>;
-    abstract remove(id: string): Promise<void>;
+    abstract findAll(): Promise<UserEntity[]>;
+    abstract findById(id: number): Promise<UserEntity>;
+    abstract findByEmail(email: string): Promise<UserEntity>;
+    abstract create(data: CreateUserDto): Promise<void>;
+    abstract update(id: number, data: UpdateUserDto): Promise<void>;
+    abstract remove(id: number): Promise<void>;
 }

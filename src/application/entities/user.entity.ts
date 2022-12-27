@@ -9,7 +9,7 @@ import {
 import { hashSync } from 'bcrypt';
 
 @Entity({ name: 'users' })
-export class UsersEntity {
+export class UserEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -46,5 +46,19 @@ export class UsersEntity {
     @BeforeInsert()
     hashPassword() {
         this.password = hashSync(this.password, 10);
+    }
+
+    constructor(user?: Partial<UserEntity>) {
+        this.id = user?.id;
+        this.name = user?.name;
+        this.email = user?.email;
+        this.office = user?.office;
+        this.birthday = user?.birthday;
+        this.situation = user?.situation;
+        this.password = user?.password;
+        this.createdAt = user?.createdAt;
+        this.updatedAt = user?.updatedAt;
+        this.resetToken = user?.resetToken;
+        this.resetTokenExpires = user?.resetTokenExpires;
     }
 }
