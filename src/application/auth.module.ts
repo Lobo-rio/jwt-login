@@ -21,7 +21,7 @@ import { UserModule } from './user.module';
       privateKey: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: '60s' },
     }),
-    TypeOrmModule.forFeature([UserEntity])
+    TypeOrmModule.forFeature([UserEntity]),
   ],
   controllers: [AuthController],
   providers: [
