@@ -5,11 +5,6 @@ import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '../../../application/entities/user.entity';
 import { UserAbstractRepository } from '../../../application/repository/user-abstract.repository';
 
-interface userAuth {
-    id: number;
-    email: string;
-}
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -18,7 +13,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(user: userAuth) {
+  async login(user) {
     const payload = { sub: user.id, email: user.email };
 
     return {
@@ -33,6 +28,8 @@ export class AuthService {
     } catch (error) {
       return null;
     }
+
+    if (!user) return null; 
 
     const isPasswordValid = compareSync(password, user.password);
     if (!isPasswordValid) return null;

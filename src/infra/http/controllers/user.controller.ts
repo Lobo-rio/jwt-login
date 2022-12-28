@@ -8,9 +8,11 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    Put
+    Put,
+    UseGuards
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
 
 import { UserService } from "../../../application/usecases/users/user.service";
 
@@ -26,6 +28,7 @@ import { IndexUserSwagger } from "./swagger/user/index-user.swagger";
 import { UpdateUserSwagger } from "./swagger/user/update-user.swagger";
 
 @Controller('app/v1/users')
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('Users')
 export class UserController {
     constructor(
